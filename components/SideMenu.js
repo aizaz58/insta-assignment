@@ -41,16 +41,18 @@ router.push({
 
 
     <ListGroup flush className={styles.listgroup} >
+   <Link href="/Home">
     <ListGroupItem 
       action
       tag="button"
-    >
+      >
      <AiOutlineHome/> Home
     </ListGroupItem>
+    </Link>
     <ListGroupItem 
       action
       tag="button"
-    >
+      >
  <AiOutlineSearch/> Search
     </ListGroupItem>
     <ListGroupItem 

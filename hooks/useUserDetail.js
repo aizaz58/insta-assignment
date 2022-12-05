@@ -4,13 +4,16 @@ import axios from '../api/axios'
 import { initialState, userReducer } from "../features/useReducer"
 const LOGIN_URL="users"
 const UseUserDetail = (id) => {
+      // console.log("user",id);
+
       
-    const query= useQuery(["userDetail",id],async(id)=>{
-        const res=await axios.get(`${LOGIN_URL}/${id}`)
-        debugger
-        return res.data
+   return  useQuery(["userDetail"],async()=>{
+    if(id && typeof id !== 'object') {
+      const res=await axios.get(`users/${id}`)
+      return await res.data
+    }
     })
-  return query
+
 }
 
 export default UseUserDetail

@@ -1,40 +1,23 @@
 import React ,{useEffect,useState, useReducer}from 'react'
-import { getUser } from '../features/reducers'
+
 import { useSelector } from "react-redux";
-import style from "../styles/Login.module.css"
-import styles from "../styles/Login.module.css"
-import { Col,Card, Container, Row, CardHeader, CardBody, CardTitle, ListGroup, ListGroupItem, CardSubtitle, Button, CardText, Form, Label, Input } from 'reactstrap';
-import avatar from "../assests/avatar.jpg"
-import test1 from "../assests/test1.png"
-import {AiOutlineHome,AiOutlineSearch,AiOutlineHeart,AiOutlineCompass,AiOutlineMenu} from "react-icons/ai"
-import {BiMessageRoundedMinus,} from "react-icons/bi"
-import {FiPlusSquare} from "react-icons/fi"
-import {BsThreeDots} from "react-icons/bs"
-import Image from 'next/image';
+
 import { initialState, userReducer } from '../features/useReducer';
 
 
 
 
 
-import { CgHeart as HeartIcon } from "react-icons/cg";
-import { FaHeart as HeartFillIcon } from "react-icons/fa";
-import { RiChat3Line as CommentIcon } from "react-icons/ri";
-import { FiSend as SendIcon } from "react-icons/fi";
-import { BsBookmark as TagIcon } from "react-icons/bs";
-import { BsBookmarkFill as TagFillIcon } from "react-icons/bs";
-import { IoEllipsisHorizontalSharp as PostMenuIcon } from "react-icons/io5";
-import { AiOutlineSmile as SmileIcon } from "react-icons/ai";
-import { GoChevronRight as NextIcon } from "react-icons/go";
-import { MdVerified as VerifiedIcon } from "react-icons/md";
+
 import { useRouter } from "next/router";
-import SideMenu from './SideMenu';
+
 import FeedCard from './FeedCard';
-import RightCard from './RightCard';
+
 import SearchCard from './SearchCard';
 import { UseFetchImages } from '../hooks/useFetchImages';
+import Skeleton from 'react-loading-skeleton';
 
-
+import 'react-loading-skeleton/dist/skeleton.css'
 
 
 
@@ -61,11 +44,31 @@ useEffect(() => {
 query=UseFetchImages(searchItem)
 
 console.log( query?.data?.hits)
+
+const wrapper=({children})=>{
+<div className='rounded-circle h-25' style={{
+                border: '1px solid #ccc',
+                display: 'block',
+                lineHeight: 2,
+                padding: '1rem',
+                marginBottom: '0.5rem',
+                width: 100,
+            }}>
+  {children}
+</div>
+}
+
+
   return (
     <>
    
        <SearchCard setSearch={setsearchItem}/>
-       {query?.isLoading?<p>loading...</p>:
+       {query?.isLoading? <> <div className=''>
+
+        <Skeleton  height={40} width="8%" inline={true} borderRadius={999}/>
+        <Skeleton  height={30} width="75%" inline={true}/>
+       </div>
+       </>:
     query?.data?.hits.map(image=>(
       <FeedCard key={image.id}{...image} />
     ))}
